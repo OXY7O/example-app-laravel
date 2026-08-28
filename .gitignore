@@ -1,0 +1,9 @@
+/vendor/
+.env
+.env.*
+!.env.example
+/.phpunit.cache/
+/build/coverage/
+/.idea/
+/.vscode/
+.DS_Store
