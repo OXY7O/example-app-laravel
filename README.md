@@ -38,7 +38,7 @@ Eksekusi matrix penuh ditunda sampai `platform-workflow` mendukung job compatibi
 2. `platform-workflow` mengimplementasikan reusable CI dan pembuatan artifact.
 3. `demo-app-laravel` membuktikan kontrak tersebut dari sisi consumer aplikasi.
 
-Lihat `docs/TRACEABILITY.md` untuk pemetaan kontrol dan `docs/PILOT-RESULT.md` untuk cara mencatat hasil pilot aktual.
+Lihat `docs/TRACEABILITY.md` untuk pemetaan kontrol, `docs/PILOT-RESULT.md` untuk panduan pencatatan, dan `docs/results/2026-08-29-php-laravel-pilot.json` untuk hasil pilot pertama yang telah lulus.
 
 ## Batas scope
 

@@ -14,6 +14,7 @@ Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 - Compatibility catalogue PHP/Laravel dengan lifecycle dan execution mode terpisah.
 - Thin caller immutable untuk reusable workflow `php-laravel`.
 - Self-validation, coverage gate 80%, traceability, dan template evidence pilot.
+- Hasil pilot aktual berstatus `passed` dengan artifact dan manifest digest terverifikasi.
 
 ### Security
 

@@ -4,7 +4,7 @@
   "title": "Laravel pilot result",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "schemaVersion", "status", "profileKey", "sourceSha", "workflowSha", "runUrl", "contractDigest", "artifact", "readiness", "failureCategory", "evidenceReference", "deploymentExecuted", "gaps"],
+  "required": ["$schema", "schemaVersion", "status", "profileKey", "sourceSha", "workflowSha", "workflowReferenceSha", "runUrl", "contractDigest", "artifact", "readiness", "failureCategory", "evidenceReference", "deploymentExecuted", "gaps"],
   "properties": {
     "$schema": {"type": "string"},
     "schemaVersion": {"const": "1.0"},
@@ -12,6 +12,7 @@
     "profileKey": {"const": "php-laravel"},
     "sourceSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
     "workflowSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "workflowReferenceSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
     "runUrl": {"type": ["string", "null"], "format": "uri"},
     "contractDigest": {"type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$"},
     "artifact": {

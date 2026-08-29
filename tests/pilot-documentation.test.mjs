@@ -8,6 +8,7 @@ test("pilot example records traceability without secret values", () => {
   assert.equal(result.profileKey, "php-laravel");
   assert.equal(result.deploymentExecuted, false);
   assert.match(result.workflowSha, /^[a-f0-9]{40}$/);
+  assert.match(result.workflowReferenceSha, /^[a-f0-9]{40}$/);
   assert.equal(JSON.stringify(result).toLowerCase().includes("token"), false);
   assert.equal(result.status, "awaiting-execution");
 });

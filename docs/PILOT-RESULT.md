@@ -4,7 +4,7 @@ Gunakan `docs/examples/pilot-result.example.json` sebagai acuan struktur, bukan 
 
 ## Data yang dicatat
 
-1. Salin source SHA, workflow SHA, URL run, contract digest, readiness, dan failure category dari run aktual.
+1. Salin source SHA, implementation workflow SHA, caller workflow reference SHA, URL run, contract digest, readiness, dan failure category dari run aktual.
 2. Catat metadata artifact: ID, nama, digest, manifest digest, ukuran, dan waktu kedaluwarsa.
 3. Simpan hanya referensi evidence eksternal. Jangan menyalin log mentah, isi environment, credential, secret, atau data aplikasi.
 4. Catat setiap gap dengan ID, kategori, deskripsi, fungsi pemilik, dan target rilis.
