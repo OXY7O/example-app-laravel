@@ -1,14 +1,16 @@
-# OXY7O Demo App Laravel
+# OXY7O Example App Laravel
 
-[![Versi release](https://img.shields.io/badge/release-v0.2.1-0969da?label=Versi%20release)](https://github.com/OXY7O/demo-app-laravel/releases/tag/v0.2.1)
-[![Status CI](https://github.com/OXY7O/demo-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/demo-app-laravel/actions/workflows/ci.yml)
+[![Versi release](https://img.shields.io/badge/release-v0.3.0-0969da?label=Versi%20release)](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.3.0)
+[![Status CI](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml)
 ![Profil PHP/Laravel](https://img.shields.io/badge/profil-PHP%20%2F%20Laravel-777bb4?label=Profil%20PHP%2FLaravel)
-![Demo referensi](https://img.shields.io/badge/jenis-demo%20referensi-16a34a?label=Demo%20referensi)
+![Contoh implementasi](https://img.shields.io/badge/jenis-example%20implementation-16a34a?label=Contoh%20implementasi)
 ![Tanpa deployment](https://img.shields.io/badge/deployment-tidak%20tersedia-6b7280?label=Tanpa%20deployment)
 
 Implementasi referensi yang menunjukkan cara repository Laravel memakai reusable CI dari `platform-workflow` dengan kontrol dari `platform-governance`.
 
 Repository private ini sengaja dibuat minimal. Tujuannya bukan menjadi starter production, melainkan contoh yang dapat dibaca, diuji, dan dibandingkan saat sebuah tim mengadopsi profil `php-laravel`.
+
+Mulai dari [landing page profile PHP/Laravel](https://github.com/OXY7O/platform-workflow/blob/main/docs/profiles/php-laravel/README.md) untuk memahami kontrak dan batas platform, kemudian gunakan repository ini untuk melihat implementasinya.
 
 ## Apa yang dibuktikan repository ini?
 
@@ -28,7 +30,7 @@ platform-governance       menetapkan policy, lifecycle, control, dan evidence
         |
 platform-workflow         menerapkan reusable CI dan kontrak artifact
         |
-demo-app-laravel          membuktikan implementasi dari sisi consumer
+example-app-laravel          membuktikan implementasi dari sisi consumer
 ```
 
 ## Cara membaca implementasi
@@ -53,16 +55,22 @@ demo-app-laravel          membuktikan implementasi dari sisi consumer
 ### Jalankan canonical Laravel 13 / PHP 8.3
 
 ```bash
-docker build --build-arg PHP_VERSION=8.3 -f Dockerfile.test -t demo-app-laravel-test:php83 .
-docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app demo-app-laravel-test:php83 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
+docker build --build-arg PHP_VERSION=8.3 -f Dockerfile.test -t example-app-laravel-test:php83 .
+docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app example-app-laravel-test:php83 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
 ```
+
+Jalankan dari root repository. Hasil yang diharapkan: dependency terpasang dari
+`composer.lock`, lima test lulus, dan coverage memenuhi threshold profile.
 
 ### Jalankan compatibility Laravel 12
 
 ```bash
-docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t demo-app-laravel-test:php82 .
-docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 demo-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
+docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t example-app-laravel-test:php82 .
+docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 example-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
 ```
+
+Jalankan dari root repository. Hasil yang diharapkan: Laravel 12 menggunakan
+lock file independen, seluruh test lulus, dan tidak ada artifact yang diunggah.
 
 ### Validasi kontrol repository
 
@@ -71,6 +79,9 @@ npm ci
 npm test
 node scripts/validate-repository.mjs
 ```
+
+Hasil yang diharapkan: seluruh test kontrol lulus dan validator mencetak
+`validated example-app-laravel`.
 
 ## Endpoint contoh
 
@@ -108,7 +119,21 @@ Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut be
 5. Catat versi dan lifecycle di compatibility catalogue.
 6. Jalankan pilot, simpan safe evidence metadata, lalu tetapkan required check setelah hasilnya stabil.
 
-Jangan menyalin demo ini sebagai production starter tanpa review arsitektur, security, konfigurasi runtime, dan kebutuhan aplikasi.
+Jangan menyalin example ini sebagai production starter tanpa review arsitektur, security, konfigurasi runtime, dan kebutuhan aplikasi.
+
+## Onboarding checklist
+
+- [ ] Pastikan workload aplikasi sesuai dengan profile `php-laravel`.
+- [ ] Pilih kombinasi Laravel/PHP yang masih diizinkan.
+- [ ] Commit `composer.json` dan `composer.lock`.
+- [ ] Pelajari `.github/workflows/ci.yml` dan salin thin caller ke repository aplikasi.
+- [ ] Tetapkan input terkontrol, coverage threshold, dan retention.
+- [ ] Pin reusable workflow ke full commit SHA yang disetujui.
+- [ ] Jalankan Composer dan test secara lokal.
+- [ ] Buka pull request dan tunggu seluruh required check.
+- [ ] Verifikasi hanya canonical lane menghasilkan artifact dan digest.
+- [ ] Catat safe evidence reference serta owner onboarding.
+- [ ] Konfirmasi bahwa `ci-qualified` bukan izin deployment.
 
 ## Batasan penting
 
@@ -125,5 +150,6 @@ Jangan menyalin demo ini sebagai production starter tanpa review arsitektur, sec
 - [Panduan hasil pilot](docs/PILOT-RESULT.md)
 - [Aktivasi preview lane](docs/PREVIEW-LANE-ACTIVATION.md)
 - [Exception legacy lane](docs/LEGACY-LANE-EXCEPTION.md)
+- [Profile PHP/Laravel](https://github.com/OXY7O/platform-workflow/blob/main/docs/profiles/php-laravel/README.md)
 - [Riwayat perubahan](CHANGELOG.md)
-- [Release v0.2.1](https://github.com/OXY7O/demo-app-laravel/releases/tag/v0.2.1)
+- [Release v0.3.0](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.3.0)

@@ -2,6 +2,37 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## [0.3.0] - 2026-08-29
+
+### Ditambahkan
+
+- onboarding checklist dari pemilihan profile sampai pencatatan safe evidence;
+- hasil yang diharapkan untuk canonical lane, compatibility lane, dan validator;
+- navigasi langsung menuju profile PHP/Laravel di `platform-workflow`.
+
+### Diubah
+
+- nama canonical repository dari `demo-app-laravel` menjadi
+  `example-app-laravel`;
+- identitas package, repository policy, schema, dokumentasi, dan validator
+  diselaraskan dengan nama canonical baru;
+- governance baseline diperbarui ke `platform-governance@v1.2.0`.
+
+### Migrasi
+
+- gunakan URL `https://github.com/OXY7O/example-app-laravel` untuk referensi baru;
+- URL repository lama tetap diarahkan GitHub, tetapi tidak digunakan lagi dalam
+  dokumen aktif;
+- pin reusable workflow tetap pada commit immutable yang sama sehingga perilaku
+  CI dan artifact tidak berubah.
+
+### Batas perubahan
+
+- tidak ada perubahan aplikasi, endpoint, dependency lock, compatibility lane,
+  artifact contract, atau deployment behavior;
+- repository tetap berstatus contoh implementasi pilot, bukan production starter
+  atau klaim operational compliance.
+
 ## [0.2.1] - 2026-08-29
 
 ### Dokumentasi

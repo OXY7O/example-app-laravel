@@ -26,8 +26,8 @@ Konfigurasi resminya berada di `../php-laravel.json`. Jangan mengubah versi atau
 Dari root repository:
 
 ```bash
-docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t demo-app-laravel-test:php82 .
-docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 demo-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
+docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t example-app-laravel-test:php82 .
+docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 example-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
 ```
 
 Ulangi dengan versi PHP lain yang tercantum pada catalogue.
