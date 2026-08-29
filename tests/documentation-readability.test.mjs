@@ -24,7 +24,7 @@ test("README explains the governed Laravel example for adopters", () => {
     assert.match(readme, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
 
-  assert.match(readme, /releases\/tag\/v0\.2\.1/);
+  assert.match(readme, /releases\/tag\/v0\.3\.0/);
   assert.match(readme, /actions\/workflows\/ci\.yml/);
 });
 
