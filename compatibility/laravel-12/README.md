@@ -1,59 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Compatibility Lane Laravel 12
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Direktori ini berisi aplikasi Laravel 12 yang dipakai khusus untuk menguji compatibility lane pada PHP 8.2, 8.3, 8.4, dan 8.5.
 
-## About Laravel
+## Mengapa source dan lock file dipisahkan?
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Laravel 12 memiliki dependency graph yang berbeda dari canonical Laravel 13. Source minimal dan `composer.lock` independen memastikan setiap lane menguji dependency yang benar-benar dibekukan, bukan hasil resolusi ulang saat workflow berjalan.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Endpoint contract tetap sama dengan canonical application:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `GET /api/health`;
+- `GET /api/examples/{id}`.
 
-## Learning Laravel
+## Peran lane ini
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- lifecycle: `security-only`;
+- execution mode: `compatibility-only`;
+- blocking: `true`;
+- menghasilkan artifact: tidak;
+- menerima application secret: tidak.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Konfigurasi resminya berada di `../php-laravel.json`. Jangan mengubah versi atau eligibility hanya dari direktori ini.
 
-## Laravel Sponsors
+## Menjalankan secara lokal
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Dari root repository:
 
-### Premium Partners
+```bash
+docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t demo-app-laravel-test:php82 .
+docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 demo-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Ulangi dengan versi PHP lain yang tercantum pada catalogue.
 
-## Contributing
+## Batasan
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Jangan menjalankan deployment dari compatibility lane.
+- Jangan mengunggah `application-package` dari lane ini.
+- Jangan menambahkan secret atau `secrets: inherit`.
+- Jangan memperbarui `composer.lock` tanpa review compatibility matrix dan bukti pengujian ulang.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Untuk konteks lengkap, kembali ke [README repository](../../README.md).

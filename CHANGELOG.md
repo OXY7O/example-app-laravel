@@ -2,6 +2,25 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## [0.2.1] - 2026-08-29
+
+### Dokumentasi
+
+- Menyusun ulang README sebagai panduan implementasi: tujuan demo, hubungan antar-repository, quick start, matriks versi, artifact, dan langkah adopsi.
+- Menambahkan badge untuk Versi release, Status CI, Profil PHP/Laravel, Demo referensi, dan batas Tanpa deployment.
+- Mengganti README generik bawaan Laravel 12 dengan panduan khusus compatibility lane.
+
+### Dampak bagi pengguna
+
+- Developer dapat menemukan file yang perlu dipelajari dan langkah menjalankan canonical maupun compatibility lane dari satu halaman.
+- Project lead dapat membedakan active, security-only, preview, dan legacy/EOL beserta perilakunya.
+- Tidak ada perubahan perilaku CI, dependency lock, compatibility matrix, artifact, endpoint, atau batas keamanan dari `v0.2.0`.
+
+### Cara mengadopsi
+
+- Gunakan README `v0.2.1` sebagai panduan terbaru.
+- Consumer tidak perlu mengganti pin `platform-workflow` karena release ini hanya menyempurnakan dokumentasi demo.
+
 ## [0.2.0] - 2026-08-29
 
 ### Added
