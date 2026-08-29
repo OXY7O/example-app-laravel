@@ -2,7 +2,7 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
-## Unreleased
+## [0.1.0] - 2026-08-29
 
 ### Changed
 
