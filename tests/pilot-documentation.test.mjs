@@ -12,3 +12,5 @@ test("pilot example records traceability without secret values", () => {
   assert.equal(JSON.stringify(result).toLowerCase().includes("token"), false);
   assert.equal(result.status, "awaiting-execution");
 });
+
+test("compatibility pilot records six passing lanes and one artifact",()=>{const result=JSON.parse(fs.readFileSync("docs/results/2026-08-29-php-laravel-compatibility-pilot.json","utf8"));assert.equal(result.status,"passed");assert.equal(result.requiredLanesPassed,6);assert.equal(result.canonicalArtifactCount,1);assert.equal(result.deploymentExecuted,false);assert.deepEqual(result.gaps,[]);});

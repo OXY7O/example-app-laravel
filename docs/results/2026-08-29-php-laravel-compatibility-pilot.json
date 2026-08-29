@@ -1,0 +1,12 @@
+{
+  "schemaVersion":"1.0","status":"passed","sourceSha":"ee18be97de709e7c7096c93a523ed593b24c2423","platformWorkflowSha":"6cd3458cceec36d738265a8b5ebefa5d4e19766c","runUrl":"https://github.com/OXY7O/demo-app-laravel/actions/runs/33238559742",
+  "canonicalArtifactCount":1,"canonicalArtifactId":9710664391,"requiredLaneCount":6,"requiredLanesPassed":6,"previewLanesExecuted":0,"legacyLanesExecuted":0,"deploymentExecuted":false,"gaps":[],
+  "lanes":[
+    {"laneId":"laravel-12-php-8.2","frameworkMajor":12,"phpVersion":"8.2","contractDigest":"sha256:fe662183bb7b465a32db88b4d53e2bd89636baaba0e40512fb663fa04768babc","lockDigest":"sha256:482001867b58566e0ef6983cfd177fcf7991223597e4c89f3d69f1325ee97cd3","conclusion":"passed"},
+    {"laneId":"laravel-12-php-8.3","frameworkMajor":12,"phpVersion":"8.3","contractDigest":"sha256:d5e1f8dff09b10879d64c43f9424791de1f5cfe3984037f5b9132e1a7cc221ec","lockDigest":"sha256:482001867b58566e0ef6983cfd177fcf7991223597e4c89f3d69f1325ee97cd3","conclusion":"passed"},
+    {"laneId":"laravel-12-php-8.4","frameworkMajor":12,"phpVersion":"8.4","contractDigest":"sha256:04b7a9e6109c54304f89ac0b84fd65c170b437429478d76b7d31aa8d319ec63d","lockDigest":"sha256:482001867b58566e0ef6983cfd177fcf7991223597e4c89f3d69f1325ee97cd3","conclusion":"passed"},
+    {"laneId":"laravel-12-php-8.5","frameworkMajor":12,"phpVersion":"8.5","contractDigest":"sha256:a5fc816473e2d8525956f4ea5c09f1ec4e6c6f4a3d806f6d7e68caa9d01d551a","lockDigest":"sha256:482001867b58566e0ef6983cfd177fcf7991223597e4c89f3d69f1325ee97cd3","conclusion":"passed"},
+    {"laneId":"laravel-13-php-8.4","frameworkMajor":13,"phpVersion":"8.4","contractDigest":"sha256:28c391fe9ad4e366551a27ae69cf3479df4d324df36993b42219a67ddc6d3266","lockDigest":"sha256:53d46edf7f5dc24bf0564e7ce7113ebcfa8812ec043e9f28a93c35d1be669794","conclusion":"passed"},
+    {"laneId":"laravel-13-php-8.5","frameworkMajor":13,"phpVersion":"8.5","contractDigest":"sha256:23e118fa222f4bbb2c5d9eab0f4ec6ebf8a521bbadd26a7c4ff5f4e1ef9b2f03","lockDigest":"sha256:53d46edf7f5dc24bf0564e7ce7113ebcfa8812ec043e9f28a93c35d1be669794","conclusion":"passed"}
+  ]
+}

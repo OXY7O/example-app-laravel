@@ -36,7 +36,7 @@ Sumber machine-readable berada di `compatibility/php-laravel.json`. Laravel 13/P
 2. `platform-workflow` mengimplementasikan reusable CI dan pembuatan artifact.
 3. `demo-app-laravel` membuktikan kontrak tersebut dari sisi consumer aplikasi.
 
-Lihat `docs/TRACEABILITY.md` untuk pemetaan kontrol, `docs/PILOT-RESULT.md` untuk panduan pencatatan, dan `docs/results/2026-08-29-php-laravel-pilot.json` untuk hasil pilot pertama yang telah lulus.
+Lihat `docs/TRACEABILITY.md` untuk pemetaan kontrol, `docs/PILOT-RESULT.md` untuk panduan pencatatan, dan `docs/results/2026-08-29-php-laravel-compatibility-pilot.json` untuk evidence matrix enam lane yang telah lulus.
 
 ## Batas scope
 
