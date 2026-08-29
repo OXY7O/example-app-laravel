@@ -1,0 +1,24 @@
+{
+  "$schema": "../pilot-result.schema.json",
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "profileKey": "php-laravel",
+  "sourceSha": "7445000d218cebd429c8c60b8d136de6dadab538",
+  "workflowSha": "ca1a1c4defa907da6c904ef9fb8e90863410be11",
+  "workflowReferenceSha": "7a7792d98a14089c962876b90934b10ce89cc3b8",
+  "runUrl": "https://github.com/OXY7O/demo-app-laravel/actions/runs/33231181228",
+  "contractDigest": "sha256:882ff412758aa9a0976d58595ece44375ad8cae0dad8bdb9f31c1903a39e72b4",
+  "artifact": {
+    "id": 9708532636,
+    "name": "ART-php-laravel-7445000d218c-882ff412758a.json.gz",
+    "digest": "sha256:298d619ad0fa1fe6b836fb279d7be806c484abf4c8656b281e381b1aa9815075",
+    "manifestDigest": "sha256:1cd34841fed8cc25ae988913c88dbb4e9d620275ac3dbc472a969d57a3592a3b",
+    "sizeInBytes": 36375892,
+    "expiresAt": "2026-09-12T03:21:59Z"
+  },
+  "readiness": "ci-qualified",
+  "failureCategory": null,
+  "evidenceReference": "github-actions-run:33231181228",
+  "deploymentExecuted": false,
+  "gaps": []
+}

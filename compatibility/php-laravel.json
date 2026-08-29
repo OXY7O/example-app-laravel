@@ -1,0 +1,59 @@
+{
+  "$schema": "./php-laravel.schema.json",
+  "schemaVersion": "1.0",
+  "profileKey": "php-laravel",
+  "asOf": "2026-08-28",
+  "canonical": {
+    "laravel": "13",
+    "php": "8.3",
+    "executionMode": "canonical-artifact"
+  },
+  "runtimes": [
+    {
+      "php": "8.2",
+      "lifecycle": "security-only",
+      "executionMode": "compatibility-only",
+      "blocking": true,
+      "frameworkMajors": [12]
+    },
+    {
+      "php": "8.3",
+      "lifecycle": "security-only",
+      "executionMode": "canonical-artifact",
+      "blocking": true,
+      "frameworkMajors": [12, 13]
+    },
+    {
+      "php": "8.4",
+      "lifecycle": "active",
+      "executionMode": "compatibility-only",
+      "blocking": true,
+      "frameworkMajors": [12, 13]
+    },
+    {
+      "php": "8.5",
+      "lifecycle": "active",
+      "executionMode": "compatibility-only",
+      "blocking": true,
+      "frameworkMajors": [12, 13]
+    },
+    {
+      "php": "8.6",
+      "lifecycle": "preview",
+      "executionMode": "compatibility-only",
+      "blocking": false,
+      "frameworkMajors": []
+    },
+    {
+      "php": "7.4",
+      "lifecycle": "legacy-eol",
+      "executionMode": "exception-only",
+      "blocking": false,
+      "frameworkMajors": [8]
+    }
+  ],
+  "matrixExpansion": {
+    "status": "planned",
+    "requiresWorkflowCapability": "compatibility-only-without-artifact"
+  }
+}

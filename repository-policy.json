@@ -3,7 +3,7 @@
   "visibility": "private",
   "defaultBranch": "main",
   "governanceVersion": "v1.1.0",
-  "workflowVersion": "v0.1.0",
+  "workflowVersion": "v0.1.2",
   "profileKey": "php-laravel",
   "deploymentEnabled": false,
   "applicationSecretsRequired": false

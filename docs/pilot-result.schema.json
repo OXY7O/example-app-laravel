@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/OXY7O/demo-app-laravel/docs/pilot-result.schema.json",
+  "title": "Laravel pilot result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schemaVersion", "status", "profileKey", "sourceSha", "workflowSha", "workflowReferenceSha", "runUrl", "contractDigest", "artifact", "readiness", "failureCategory", "evidenceReference", "deploymentExecuted", "gaps"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schemaVersion": {"const": "1.0"},
+    "status": {"enum": ["awaiting-execution", "passed", "failed"]},
+    "profileKey": {"const": "php-laravel"},
+    "sourceSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "workflowSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "workflowReferenceSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "runUrl": {"type": ["string", "null"], "format": "uri"},
+    "contractDigest": {"type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$"},
+    "artifact": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "name", "digest", "manifestDigest", "sizeInBytes", "expiresAt"],
+          "properties": {
+            "id": {"type": "integer", "minimum": 1},
+            "name": {"type": "string", "minLength": 1},
+            "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+            "manifestDigest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+            "sizeInBytes": {"type": "integer", "minimum": 0},
+            "expiresAt": {"type": "string", "format": "date-time"}
+          }
+        }
+      ]
+    },
+    "readiness": {"type": ["string", "null"]},
+    "failureCategory": {"type": ["string", "null"]},
+    "evidenceReference": {"type": ["string", "null"]},
+    "deploymentExecuted": {"const": false},
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "category", "description", "ownerFunction", "targetRelease"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "category": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "ownerFunction": {"type": "string", "minLength": 1},
+          "targetRelease": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
