@@ -1,0 +1,64 @@
+{
+  "name": "Validate Demo Repository",
+  "on": {
+    "pull_request": {},
+    "push": {
+      "branches": ["main"]
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "jobs": {
+    "validate-demo-repository": {
+      "runs-on": "ubuntu-24.04",
+      "steps": [
+        {
+          "name": "Checkout source",
+          "uses": "actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+        },
+        {
+          "name": "Configure Node.js",
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version": "24",
+            "cache": "npm"
+          }
+        },
+        {
+          "name": "Configure PHP",
+          "uses": "shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240",
+          "with": {
+            "php-version": "8.3",
+            "tools": "composer",
+            "coverage": "xdebug"
+          }
+        },
+        {
+          "name": "Install repository validation dependencies",
+          "run": "npm ci"
+        },
+        {
+          "name": "Validate repository contracts",
+          "run": "npm test"
+        },
+        {
+          "name": "Validate Composer metadata",
+          "run": "composer validate --strict"
+        },
+        {
+          "name": "Install frozen PHP dependencies",
+          "run": "composer install --no-interaction --no-progress"
+        },
+        {
+          "name": "Run application tests and coverage gate",
+          "run": "composer run test:phpunit"
+        },
+        {
+          "name": "Run repository validator",
+          "run": "node scripts/validate-repository.mjs"
+        }
+      ]
+    }
+  }
+}
