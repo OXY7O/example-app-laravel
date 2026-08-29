@@ -6,7 +6,7 @@ Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
 ### Changed
 
-- Memperbarui caller ke `platform-workflow v0.1.1` untuk dukungan consumer private repository.
+- Memperbarui caller ke `platform-workflow v0.1.2` untuk dukungan consumer private repository dan source artifact filtering.
 
 ### Added
 

@@ -1,7 +1,7 @@
 ## Ringkasan
 
 - Menambahkan Laravel API minimal sebagai consumer referensi profile `php-laravel`.
-- Menggunakan `platform-governance v1.1.0` dan `platform-workflow v0.1.1` yang dipin ke full commit SHA.
+- Menggunakan `platform-governance v1.1.0` dan `platform-workflow v0.1.2` yang dipin ke full commit SHA.
 - Menjalankan canonical CI pada PHP 8.3 dengan coverage minimum 80% dan artifact retention 14 hari.
 
 ## Lifecycle kompatibilitas

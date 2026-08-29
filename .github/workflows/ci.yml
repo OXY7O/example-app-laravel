@@ -8,7 +8,7 @@
   },
   "jobs": {
     "php-laravel-ci": {
-      "uses": "OXY7O/platform-workflow/.github/workflows/ci-profile-php-laravel.yml@1ba98458839689a441ef06c2c6290466b1ad9274",
+      "uses": "OXY7O/platform-workflow/.github/workflows/ci-profile-php-laravel.yml@7a7792d98a14089c962876b90934b10ce89cc3b8",
       "permissions": {
         "contents": "read"
       },
