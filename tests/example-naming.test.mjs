@@ -1,7 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {spawnSync} from "node:child_process";
+
+const activeFiles = (entry) => {
+  if (entry === "docs/results") return [];
+  const stat = fs.statSync(entry);
+  if (stat.isFile()) return [entry];
+  return fs.readdirSync(entry).flatMap((name) => activeFiles(`${entry}/${name}`));
+};
 
 test("package and repository policy use the example identity", () => {
   const packageDocument = JSON.parse(fs.readFileSync("package.json", "utf8"));
@@ -12,9 +18,7 @@ test("package and repository policy use the example identity", () => {
 });
 
 test("active repository content does not use the old demo identity", () => {
-  const result = spawnSync("rg", [
-    "-n",
-    "demo-app-laravel|Demo App Laravel",
+  const files = [
     "README.md",
     "compatibility",
     "docs",
@@ -22,11 +26,12 @@ test("active repository content does not use the old demo identity", () => {
     "package-lock.json",
     "repository-policy.json",
     "scripts",
-    "--glob",
-    "!docs/results/**",
-  ], {encoding: "utf8"});
+  ].flatMap(activeFiles);
+  const matches = files.filter((file) =>
+    /demo-app-laravel|Demo App Laravel/.test(fs.readFileSync(file, "utf8")),
+  );
 
-  assert.equal(result.status, 1, result.stdout);
+  assert.deepEqual(matches, []);
 });
 
 test("active links point to the profile and canonical example repository", () => {
