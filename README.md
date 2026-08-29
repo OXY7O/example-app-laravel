@@ -1,24 +1,70 @@
 # OXY7O Demo App Laravel
 
-Consumer referensi minimal untuk memvalidasi profil `php-laravel` pada `platform-workflow v0.2.0` berdasarkan `platform-governance v1.1.0`.
+[![Versi release](https://img.shields.io/badge/release-v0.2.1-0969da?label=Versi%20release)](https://github.com/OXY7O/demo-app-laravel/releases/tag/v0.2.1)
+[![Status CI](https://github.com/OXY7O/demo-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/demo-app-laravel/actions/workflows/ci.yml)
+![Profil PHP/Laravel](https://img.shields.io/badge/profil-PHP%20%2F%20Laravel-777bb4?label=Profil%20PHP%2FLaravel)
+![Demo referensi](https://img.shields.io/badge/jenis-demo%20referensi-16a34a?label=Demo%20referensi)
+![Tanpa deployment](https://img.shields.io/badge/deployment-tidak%20tersedia-6b7280?label=Tanpa%20deployment)
 
-Repository private ini membuktikan CI, pengujian, compatibility metadata, dan handoff `application-package`. Repository ini bukan starter production dan tidak menjalankan deployment.
+Implementasi referensi yang menunjukkan cara repository Laravel memakai reusable CI dari `platform-workflow` dengan kontrol dari `platform-governance`.
 
-## Endpoint
+Repository private ini sengaja dibuat minimal. Tujuannya bukan menjadi starter production, melainkan contoh yang dapat dibaca, diuji, dan dibandingkan saat sebuah tim mengadopsi profil `php-laravel`.
 
-- `GET /api/health` mengembalikan status layanan.
-- `GET /api/examples/{id}` mengembalikan resource deterministik untuk validasi integrasi.
+## Apa yang dibuktikan repository ini?
 
-## Menjalankan secara lokal
+- thin caller dapat memanggil reusable workflow menggunakan full commit SHA;
+- canonical lane menguji aplikasi dan menghasilkan tepat satu `application-package`;
+- enam compatibility lane wajib menguji Laravel/PHP tanpa menghasilkan artifact;
+- preview bersifat opt-in dan non-blocking;
+- legacy/EOL memerlukan exception dan migration plan;
+- workflow berjalan read-only, tanpa application secret, dan tanpa deployment.
 
-Gunakan image test agar versi PHP dan extension konsisten:
+Hasil pilot aktual tersedia di [evidence compatibility pilot](docs/results/2026-08-29-php-laravel-compatibility-pilot.json).
+
+## Hubungan dengan repository platform
+
+```text
+platform-governance       menetapkan policy, lifecycle, control, dan evidence
+        |
+platform-workflow         menerapkan reusable CI dan kontrak artifact
+        |
+demo-app-laravel          membuktikan implementasi dari sisi consumer
+```
+
+## Cara membaca implementasi
+
+| Lokasi | Yang dapat dipelajari |
+|---|---|
+| `.github/workflows/ci.yml` | Thin caller, immutable SHA, permissions, canonical job, dan compatibility matrix |
+| `compatibility/php-laravel.json` | Versi, lifecycle, execution mode, eligibility, dan blocking behavior |
+| `compatibility/laravel-12/` | Source dan lock file independen untuk Laravel 12 |
+| `Dockerfile.test` | Runtime test PHP yang dapat dipilih melalui build argument |
+| `docs/TRACEABILITY.md` | Hubungan kontrol governance dengan bukti implementasi |
+| `docs/PILOT-RESULT.md` | Cara merekam hasil pilot tanpa menyimpan secret |
+
+## Mulai cepat
+
+### Prasyarat
+
+- Git;
+- Docker untuk menjalankan pengujian PHP yang konsisten;
+- Node.js 24 untuk validasi kontrak repository.
+
+### Jalankan canonical Laravel 13 / PHP 8.3
 
 ```bash
-docker build -f Dockerfile.test -t demo-app-laravel-test:php83 .
+docker build --build-arg PHP_VERSION=8.3 -f Dockerfile.test -t demo-app-laravel-test:php83 .
 docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app demo-app-laravel-test:php83 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
 ```
 
-Pengujian kontrol repository dijalankan dengan:
+### Jalankan compatibility Laravel 12
+
+```bash
+docker build --build-arg PHP_VERSION=8.2 -f Dockerfile.test -t demo-app-laravel-test:php82 .
+docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app/compatibility/laravel-12 demo-app-laravel-test:php82 sh -lc 'composer install --no-interaction --no-progress && composer run test:phpunit'
+```
+
+### Validasi kontrol repository
 
 ```bash
 npm ci
@@ -26,18 +72,58 @@ npm test
 node scripts/validate-repository.mjs
 ```
 
-## Lifecycle kompatibilitas
+## Endpoint contoh
 
-Sumber machine-readable berada di `compatibility/php-laravel.json`. Laravel 13/PHP 8.3 adalah canonical lane dan satu-satunya penghasil artifact. Enam lane wajib memeriksa Laravel 12 pada PHP 8.2–8.5 dan Laravel 13 pada PHP 8.4–8.5 tanpa menghasilkan artifact. PHP 8.6 tetap preview non-blocking dan PHP 7.4 hanya melalui exception serta migration plan.
+| Endpoint | Fungsi |
+|---|---|
+| `GET /api/health` | Mengembalikan status layanan untuk smoke/integration check |
+| `GET /api/examples/{id}` | Mengembalikan resource deterministik untuk pengujian kontrak |
 
-## Hubungan repository
+Laravel 12 dan Laravel 13 mempertahankan endpoint contract yang sama agar compatibility test membandingkan perilaku yang setara.
 
-1. `platform-governance` menetapkan policy, lifecycle, control, dan evidence requirement.
-2. `platform-workflow` mengimplementasikan reusable CI dan pembuatan artifact.
-3. `demo-app-laravel` membuktikan kontrak tersebut dari sisi consumer aplikasi.
+## Matriks versi yang diuji
 
-Lihat `docs/TRACEABILITY.md` untuk pemetaan kontrol, `docs/PILOT-RESULT.md` untuk panduan pencatatan, dan `docs/results/2026-08-29-php-laravel-compatibility-pilot.json` untuk evidence matrix enam lane yang telah lulus.
+| Lane | Laravel | PHP | Lifecycle | Blocking | Eligible | Artifact |
+|---|---:|---:|---|---|---|---|
+| Canonical | 13 | 8.3 | active | Ya | Ya | Tepat satu |
+| Compatibility | 13 | 8.4–8.5 | active | Ya | Ya | Tidak |
+| Compatibility | 12 | 8.2–8.5 | security-only | Ya | Ya | Tidak |
+| Preview | 13 | 8.6 | preview | Tidak | Tidak secara default | Tidak |
+| Legacy | 8 | 7.4 | legacy/EOL | Tidak | Hanya exception | Tidak |
 
-## Batas scope
+Sumber machine-readable yang menjadi acuan adalah `compatibility/php-laravel.json`.
 
-Repository tidak menyimpan credential aplikasi, tidak menggunakan `secrets: inherit`, dan tidak menjalankan deployment. Promotion dan deployment menjadi tahap lanjutan setelah artifact CI dinyatakan valid.
+## Artifact yang dihasilkan
+
+Hanya canonical lane Laravel 13/PHP 8.3 yang menghasilkan `application-package`. Artifact tersebut menyertakan manifest dan digest untuk traceability. Compatibility, preview, dan legacy lane hanya menghasilkan status serta safe evidence metadata.
+
+Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut belum otomatis disetujui untuk promotion atau deployment.
+
+## Cara mengadopsi pola ini
+
+1. Mulai dari `.github/workflows/ci.yml` dan pertahankan permissions `contents: read`.
+2. Ganti identitas kontrak, working directory, coverage threshold, dan retention sesuai aplikasi.
+3. Pertahankan reusable workflow pada full commit SHA yang telah disetujui.
+4. Buat lock file independen bila versi framework membutuhkan dependency graph berbeda.
+5. Catat versi dan lifecycle di compatibility catalogue.
+6. Jalankan pilot, simpan safe evidence metadata, lalu tetapkan required check setelah hasilnya stabil.
+
+Jangan menyalin demo ini sebagai production starter tanpa review arsitektur, security, konfigurasi runtime, dan kebutuhan aplikasi.
+
+## Batasan penting
+
+- Tidak ada credential, environment secret, atau `secrets: inherit`.
+- Tidak ada deployment ke development, staging, atau production.
+- Tidak ada promotion otomatis setelah merge.
+- Preview tidak menjadi blocking gate.
+- Legacy/EOL tidak diaktifkan tanpa exception yang masih berlaku.
+- Status repository ini masih pilot dan bukan klaim `operationally compliant`.
+
+## Dokumentasi lanjutan
+
+- [Traceability](docs/TRACEABILITY.md)
+- [Panduan hasil pilot](docs/PILOT-RESULT.md)
+- [Aktivasi preview lane](docs/PREVIEW-LANE-ACTIVATION.md)
+- [Exception legacy lane](docs/LEGACY-LANE-EXCEPTION.md)
+- [Riwayat perubahan](CHANGELOG.md)
+- [Release v0.2.1](https://github.com/OXY7O/demo-app-laravel/releases/tag/v0.2.1)
