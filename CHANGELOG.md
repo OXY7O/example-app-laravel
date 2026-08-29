@@ -4,6 +4,10 @@ Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
 ## Unreleased
 
+### Changed
+
+- Memperbarui caller ke `platform-workflow v0.1.1` untuk dukungan consumer private repository.
+
 ### Added
 
 - Laravel API minimal untuk health dan deterministic example resource.
