@@ -1,0 +1,16 @@
+{
+  "$schema": "../pilot-result.schema.json",
+  "schemaVersion": "1.0",
+  "status": "awaiting-execution",
+  "profileKey": "php-laravel",
+  "sourceSha": "0000000000000000000000000000000000000000",
+  "workflowSha": "eedf407901a300189a90691c6d604f9e51c7c01d",
+  "runUrl": null,
+  "contractDigest": null,
+  "artifact": null,
+  "readiness": null,
+  "failureCategory": null,
+  "evidenceReference": null,
+  "deploymentExecuted": false,
+  "gaps": []
+}
