@@ -2,6 +2,18 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## [0.2.0] - 2026-08-29
+
+### Added
+
+- Laravel 12 multi-lock lane dengan platform PHP 8.2 dan endpoint contract yang sama.
+- Enam compatibility-only lane wajib serta canonical artifact lane yang tetap tunggal.
+- Panduan aktivasi preview dan exception legacy.
+
+### Security
+
+- Compatibility matrix tetap read-only, secretless, artifactless, dan tanpa deployment.
+
 ## [0.1.0] - 2026-08-29
 
 ### Changed
