@@ -62,9 +62,15 @@ for (const requiredFile of ["composer.lock", "artisan", "bootstrap/app.php"]) {
 
 const catalogue = JSON.parse(fs.readFileSync("compatibility/php-laravel.json", "utf8"));
 const caller = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
-const contract = JSON.parse(caller.jobs["php-laravel-ci"].with["contract-json"]);
+const contract = JSON.parse(caller.jobs["canonical-artifact"].with["contract-json"]);
 assert.equal(contract.profileKey, catalogue.profileKey, "profile key differs from catalogue");
-assert.equal(contract.phpVersion, catalogue.canonical.php, "canonical PHP differs from caller");
+const canonical = catalogue.lanes.find((lane) => lane.executionMode === "canonical-artifact");
+assert.equal(contract.phpVersion, canonical.phpVersion, "canonical PHP differs from caller");
+assert.equal(catalogue.lanes.filter((lane) => lane.blocking && lane.executionMode === "compatibility-only").length, 6, "six blocking compatibility lanes are required");
+for (const lane of catalogue.lanes.filter((item) => item.eligible && item.executionMode === "compatibility-only")) {
+  assert.equal(fs.existsSync(path.join(lane.workingDirectory, "composer.lock")), true, `missing frozen lock for ${lane.laneId}`);
+}
+assert.equal(caller.jobs.compatibility.secrets, undefined, "compatibility caller must not receive secrets");
 
 const repositoryFiles = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard"], { encoding: "utf8" })
   .trim()

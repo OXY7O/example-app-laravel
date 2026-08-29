@@ -2,11 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const WORKFLOW_SHA = "7a7792d98a14089c962876b90934b10ce89cc3b8";
+const WORKFLOW_SHA = "6cd3458cceec36d738265a8b5ebefa5d4e19766c";
 
 test("caller is immutable, read-only, and secretless", () => {
   const workflow = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
-  const job = workflow.jobs["php-laravel-ci"];
+  const job = workflow.jobs["canonical-artifact"];
 
   assert.equal(workflow.permissions.contents, "read");
   assert.equal(
@@ -20,3 +20,5 @@ test("caller is immutable, read-only, and secretless", () => {
   assert.equal(contract.artifactType, "application-package");
   assert.equal(contract.coverageThreshold, 80);
 });
+
+test("caller separates canonical artifact and compatibility matrix",()=>{const workflow=JSON.parse(fs.readFileSync(".github/workflows/ci.yml","utf8"));assert.ok(workflow.jobs["canonical-artifact"]);assert.ok(workflow.jobs["prepare-compatibility"]);assert.ok(workflow.jobs.compatibility.strategy.matrix);assert.equal(workflow.jobs.compatibility.secrets,undefined);});

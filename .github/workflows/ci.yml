@@ -1,25 +1,4 @@
-{
-  "name": "Laravel CI",
-  "on": {
-    "pull_request": {}
-  },
-  "permissions": {
-    "contents": "read"
-  },
-  "jobs": {
-    "php-laravel-ci": {
-      "uses": "OXY7O/platform-workflow/.github/workflows/ci-profile-php-laravel.yml@7a7792d98a14089c962876b90934b10ce89cc3b8",
-      "permissions": {
-        "contents": "read"
-      },
-      "with": {
-        "contract-json": "{\"governanceVersion\":\"v1.1.0\",\"catalogueVersion\":\"1.1.0\",\"profileKey\":\"php-laravel\",\"phpVersion\":\"8.3\",\"dependencyMode\":\"composer-frozen\",\"testCommandProfile\":\"phpunit\",\"artifactType\":\"application-package\",\"extensions\":[],\"workingDirectory\":\".\",\"coverageThreshold\":80,\"retentionDays\":14,\"evidenceMode\":\"safe-metadata\"}",
-        "php-version": "8.3",
-        "test-profile": "phpunit",
-        "working-directory": ".",
-        "coverage-threshold": 80,
-        "retention-days": 14
-      }
-    }
-  }
-}
+{"name":"Laravel CI","on":{"pull_request":{}},"permissions":{"contents":"read"},"jobs":{
+"prepare-compatibility":{"runs-on":"ubuntu-24.04","outputs":{"matrix-json":"${{ steps.matrix.outputs.matrix-json }}"},"steps":[{"uses":"actions/checkout@11d5960a326750d5838078e36cf38b85af677262"},{"id":"matrix","uses":"OXY7O/platform-workflow/actions/generate-compatibility-matrix@6cd3458cceec36d738265a8b5ebefa5d4e19766c","with":{"catalogue-path":"compatibility/php-laravel.json","include-preview":"false"}}]},
+"canonical-artifact":{"uses":"OXY7O/platform-workflow/.github/workflows/ci-profile-php-laravel.yml@6cd3458cceec36d738265a8b5ebefa5d4e19766c","permissions":{"contents":"read"},"with":{"contract-json":"{\"governanceVersion\":\"v1.1.0\",\"catalogueVersion\":\"1.1.0\",\"profileKey\":\"php-laravel\",\"phpVersion\":\"8.3\",\"dependencyMode\":\"composer-frozen\",\"testCommandProfile\":\"phpunit\",\"artifactType\":\"application-package\",\"extensions\":[],\"workingDirectory\":\".\",\"coverageThreshold\":80,\"retentionDays\":14,\"evidenceMode\":\"safe-metadata\"}","php-version":"8.3","test-profile":"phpunit","working-directory":".","coverage-threshold":80,"retention-days":14}},
+"compatibility":{"needs":"prepare-compatibility","strategy":{"fail-fast":false,"matrix":"${{ fromJSON(needs.prepare-compatibility.outputs.matrix-json) }}"},"uses":"OXY7O/platform-workflow/.github/workflows/ci-compatibility-php-laravel.yml@6cd3458cceec36d738265a8b5ebefa5d4e19766c","permissions":{"contents":"read"},"with":{"contract-json":"${{ toJSON(matrix) }}","php-version":"${{ matrix.phpVersion }}","working-directory":"${{ matrix.workingDirectory }}","test-profile":"${{ matrix.testCommandProfile }}"}}}}

@@ -1,6 +1,6 @@
 # OXY7O Demo App Laravel
 
-Consumer referensi minimal untuk memvalidasi profil `php-laravel` pada `platform-workflow v0.1.2` berdasarkan `platform-governance v1.1.0`.
+Consumer referensi minimal untuk memvalidasi profil `php-laravel` pada `platform-workflow v0.2.0` berdasarkan `platform-governance v1.1.0`.
 
 Repository private ini membuktikan CI, pengujian, compatibility metadata, dan handoff `application-package`. Repository ini bukan starter production dan tidak menjalankan deployment.
 
@@ -28,9 +28,7 @@ node scripts/validate-repository.mjs
 
 ## Lifecycle kompatibilitas
 
-Sumber machine-readable berada di `compatibility/php-laravel.json`. Pilot pertama hanya menghasilkan artifact dari PHP 8.3 dan Laravel 13. PHP 8.2, 8.4, dan 8.5 dicatat untuk compatibility-only; PHP 8.6 adalah preview non-blocking; PHP 7.4 hanya boleh digunakan melalui exception dan migration plan.
-
-Eksekusi matrix penuh ditunda sampai `platform-workflow` mendukung job compatibility-only tanpa menghasilkan artifact kedua yang ambigu.
+Sumber machine-readable berada di `compatibility/php-laravel.json`. Laravel 13/PHP 8.3 adalah canonical lane dan satu-satunya penghasil artifact. Enam lane wajib memeriksa Laravel 12 pada PHP 8.2–8.5 dan Laravel 13 pada PHP 8.4–8.5 tanpa menghasilkan artifact. PHP 8.6 tetap preview non-blocking dan PHP 7.4 hanya melalui exception serta migration plan.
 
 ## Hubungan repository
 

@@ -1,0 +1,1 @@
+{"status":"example","exceptionId":"EXC-LEGACY-2026-001","sponsor":"<SPONSOR_FUNCTION>","businessJustification":"<JUSTIFICATION>","migrationTarget":"Laravel 12 / PHP 8.2 or newer","expirationDate":"2026-12-31","manualTriggerOnly":true,"regularPullRequestEnabled":false,"evidenceReference":"<S3_EVIDENCE_REFERENCE>"}

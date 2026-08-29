@@ -1,0 +1,2 @@
+import test from "node:test";import assert from "node:assert/strict";import fs from "node:fs";
+test("legacy example requires migration and expiration controls",()=>{const record=JSON.parse(fs.readFileSync("docs/examples/legacy-lane-exception.example.json","utf8"));assert.equal(record.status,"example");assert.match(record.exceptionId,/^EXC-/);assert.ok(record.migrationTarget);assert.ok(record.expirationDate);assert.equal(record.regularPullRequestEnabled,false);});
