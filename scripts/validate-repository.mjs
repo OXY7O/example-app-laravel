@@ -87,4 +87,4 @@ for (const file of repositoryFiles) {
   assert.equal(forbidden, false, `sensitive file must not be tracked: ${file}`);
 }
 
-console.log(`validated demo-app-laravel (${jsonFiles.length} JSON files, ${workflowFiles.length} workflows)`);
+console.log(`validated example-app-laravel (${jsonFiles.length} JSON files, ${workflowFiles.length} workflows)`);

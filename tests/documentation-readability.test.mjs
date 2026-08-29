@@ -11,7 +11,7 @@ test("README explains the governed Laravel example for adopters", () => {
     "Versi release",
     "Status CI",
     "Profil PHP/Laravel",
-    "Demo referensi",
+    "Contoh implementasi",
     "Tanpa deployment",
     "Apa yang dibuktikan repository ini?",
     "Cara membaca implementasi",

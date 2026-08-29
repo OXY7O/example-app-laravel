@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/OXY7O/demo-app-laravel/docs/pilot-result.schema.json",
+  "$id": "https://github.com/OXY7O/example-app-laravel/docs/pilot-result.schema.json",
   "title": "Laravel pilot result",
   "type": "object",
   "additionalProperties": false,

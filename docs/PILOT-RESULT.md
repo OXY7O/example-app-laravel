@@ -1,5 +1,9 @@
 # Panduan Hasil Pilot Laravel
 
+> Evidence yang dibuat sebelum rename repository dapat memuat URL repository
+> sebelumnya. URL itu merupakan referensi historis dan diarahkan GitHub ke
+> canonical repository `OXY7O/example-app-laravel`.
+
 Gunakan `docs/examples/pilot-result.example.json` sebagai acuan struktur, bukan sebagai record aktual. Setelah check pada pull request selesai, buat file baru di `docs/results/YYYY-MM-DD-php-laravel-pilot.json` dan isi dari output GitHub Actions.
 
 ## Data yang dicatat
