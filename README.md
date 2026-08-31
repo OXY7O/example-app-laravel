@@ -25,7 +25,7 @@ Hasil pilot aktual tersedia di [evidence compatibility pilot](docs/results/2026-
 
 ## Peran dalam provisioning
 
-Kontrak provisioning mengikuti [Platform Governance v1.5.0](https://github.com/OXY7O/platform-governance/releases/tag/v1.5.0).
+Kontrak provisioning mengikuti [Platform Governance v1.5.1](https://github.com/OXY7O/platform-governance/releases/tag/v1.5.1).
 
 Repository ini adalah permanent compatibility dan certification fixture untuk
 profile `php-laravel`. Ia memvalidasi exact workflow SHA, canonical/compatibility
@@ -78,7 +78,9 @@ docker run --rm -e XDEBUG_MODE=coverage -v "$PWD:/app" -w /app example-app-larav
 ```
 
 Jalankan dari root repository. Hasil yang diharapkan: dependency terpasang dari
-`composer.lock`, lima test lulus, dan coverage memenuhi threshold profile.
+`composer.lock`, lima test lulus, dan application-level coverage check berhasil.
+Coverage tersebut masih milik script aplikasi; reusable workflow belum
+mengklaim governed coverage enforcement.
 
 ### Jalankan compatibility Laravel 12
 
@@ -131,7 +133,7 @@ Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut be
 ## Cara mengadopsi pola ini melalui provisioning
 
 1. Mulai dari `.github/workflows/ci.yml` dan pertahankan permissions `contents: read`.
-2. Ganti identitas kontrak, working directory, coverage threshold, dan retention sesuai aplikasi.
+2. Ganti identitas kontrak, working directory, dan retention sesuai aplikasi.
 3. Pertahankan reusable workflow pada full commit SHA yang telah disetujui.
 4. Buat lock file independen bila versi framework membutuhkan dependency graph berbeda.
 5. Catat versi dan lifecycle di compatibility catalogue.
@@ -146,7 +148,8 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 - [ ] Pilih kombinasi Laravel/PHP yang masih diizinkan.
 - [ ] Commit `composer.json` dan `composer.lock`.
 - [ ] Pelajari `.github/workflows/ci.yml`; gunakan governed provisioning untuk memasang thin caller ketika layanan tersedia.
-- [ ] Tetapkan input terkontrol, coverage threshold, dan retention.
+- [ ] Tetapkan input terkontrol dan retention; jangan menambahkan coverage input
+  sebelum executor governed tersedia.
 - [ ] Pin reusable workflow ke full commit SHA yang disetujui.
 - [ ] Jalankan Composer dan test secara lokal.
 - [ ] Buka pull request dan tunggu seluruh required check.
@@ -157,6 +160,7 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 ## Batasan penting
 
 - Tidak ada credential, environment secret, atau `secrets: inherit`.
+- Seluruh job CI example diarahkan ke self-hosted runner `platform-ci`.
 - Tidak ada deployment ke development, staging, atau production.
 - Tidak ada promotion otomatis setelah merge.
 - Preview tidak menjadi blocking gate.

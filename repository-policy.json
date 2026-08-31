@@ -3,8 +3,8 @@
   "repositoryName": "example-app-laravel",
   "visibility": "private",
   "defaultBranch": "main",
-  "governanceVersion": "v1.2.0",
-  "workflowVersion": "v0.2.0",
+  "governanceVersion": "v1.5.1",
+  "workflowVersion": "pr-17@78bdee3ae513d271cac5c0046972a65528f4fe0a",
   "profileKey": "php-laravel",
   "deploymentEnabled": false,
   "applicationSecretsRequired": false

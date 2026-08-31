@@ -2,6 +2,19 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## Unreleased
+
+### CI dan runner
+
+- memperbarui caller Laravel ke draft `platform-workflow` PR #17 pada immutable
+  workflow SHA `78bdee3ae513d271cac5c0046972a65528f4fe0a`;
+- menaikkan caller contract ke `platform-governance@v1.5.1` dan catalogue
+  `1.4.0`;
+- menghapus input coverage yang belum mempunyai governed executor;
+- mengarahkan seluruh job example ke self-hosted runner `platform-ci`;
+- mempertahankan application-level coverage check sebagai kontrol lokal tanpa
+  mengklaimnya sebagai governed workflow coverage enforcement.
+
 ## [0.3.0] - 2026-08-29
 
 ### Ditambahkan
