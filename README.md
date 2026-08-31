@@ -23,6 +23,22 @@ Mulai dari [landing page profile PHP/Laravel](https://github.com/OXY7O/platform-
 
 Hasil pilot aktual tersedia di [evidence compatibility pilot](docs/results/2026-08-29-php-laravel-compatibility-pilot.json).
 
+## Peran dalam provisioning
+
+Repository ini adalah permanent compatibility dan certification fixture untuk
+profile `php-laravel`. Ia memvalidasi exact workflow SHA, canonical/compatibility
+lane, artifact boundary, dan Safe evidence. Source repository ini tidak disalin
+atau dipindahkan menjadi repository developer.
+
+Saat `platform-provisioning` tersedia, provisioner menggunakan certification yang
+masih valid untuk approved bundle yang sama. Golden path tetap berasal dari
+`template-app-php-laravel`. Kombinasi baru atau perubahan behavior menjalani
+sandbox validation terlebih dahulu.
+
+Saat ini deployment dan security end-to-end belum tersedia. Karena itu repository
+ini belum dapat menerbitkan certification reusable untuk deployment atau security
+profile penuh.
+
 ## Hubungan dengan repository platform
 
 ```text
@@ -110,7 +126,7 @@ Hanya canonical lane Laravel 13/PHP 8.3 yang menghasilkan `application-package`.
 
 Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut belum otomatis disetujui untuk promotion atau deployment.
 
-## Cara mengadopsi pola ini
+## Cara mengadopsi pola ini melalui provisioning
 
 1. Mulai dari `.github/workflows/ci.yml` dan pertahankan permissions `contents: read`.
 2. Ganti identitas kontrak, working directory, coverage threshold, dan retention sesuai aplikasi.
@@ -119,14 +135,15 @@ Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut be
 5. Catat versi dan lifecycle di compatibility catalogue.
 6. Jalankan pilot, simpan safe evidence metadata, lalu tetapkan required check setelah hasilnya stabil.
 
-Jangan menyalin example ini sebagai production starter tanpa review arsitektur, security, konfigurasi runtime, dan kebutuhan aplikasi.
+Jangan menyalin example ini sebagai production starter. Repository aplikasi baru
+akan dirender dari template dan approved overlay melalui governed provisioning.
 
 ## Onboarding checklist
 
 - [ ] Pastikan workload aplikasi sesuai dengan profile `php-laravel`.
 - [ ] Pilih kombinasi Laravel/PHP yang masih diizinkan.
 - [ ] Commit `composer.json` dan `composer.lock`.
-- [ ] Pelajari `.github/workflows/ci.yml` dan salin thin caller ke repository aplikasi.
+- [ ] Pelajari `.github/workflows/ci.yml`; gunakan governed provisioning untuk memasang thin caller ketika layanan tersedia.
 - [ ] Tetapkan input terkontrol, coverage threshold, dan retention.
 - [ ] Pin reusable workflow ke full commit SHA yang disetujui.
 - [ ] Jalankan Composer dan test secara lokal.
