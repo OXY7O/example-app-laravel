@@ -12,8 +12,17 @@
   "jobs": {
     "validate-demo-repository": {
       "runs-on": ["self-hosted", "platform-ci"],
+      "env": {
+        "COMPOSER_ALLOW_SUPERUSER": "1",
+        "COMPOSER_CACHE_DIR": "/var/cache/platform/composer",
+        "NPM_CONFIG_CACHE": "/var/cache/platform/npm"
+      },
       "container": {
-        "image": "php:8.3-cli-bookworm@sha256:177529735599a8244b2c903522f029839dce1c2ac4be122fdc00ada4b45a20e4"
+        "image": "php:8.3-cli-bookworm@sha256:177529735599a8244b2c903522f029839dce1c2ac4be122fdc00ada4b45a20e4",
+        "volumes": [
+          "platform-ci-composer-php-8.3:/var/cache/platform/composer",
+          "platform-ci-npm-node-24:/var/cache/platform/npm"
+        ]
       },
       "steps": [
         {
@@ -24,8 +33,7 @@
           "name": "Configure Node.js",
           "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
           "with": {
-            "node-version": "24",
-            "cache": "npm"
+            "node-version": "24"
           }
         },
         {

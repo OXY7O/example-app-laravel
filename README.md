@@ -161,6 +161,7 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 
 - Tidak ada credential, environment secret, atau `secrets: inherit`.
 - Seluruh job CI example diarahkan ke self-hosted runner `platform-ci` dan dieksekusi di dalam container runtime yang dipin dengan digest immutable; runtime aplikasi tidak dipasang native pada host runner.
+- Validasi repository memakai named volume Composer dan npm yang persisten serta terisolasi per versi runtime. Cache hanya menyimpan unduhan dependency; workspace, `vendor`, `node_modules`, artifact, evidence, dan secret tidak disimpan di dalamnya.
 - Tidak ada deployment ke development, staging, atau production.
 - Tidak ada promotion otomatis setelah merge.
 - Preview tidak menjadi blocking gate.

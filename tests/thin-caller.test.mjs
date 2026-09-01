@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const WORKFLOW_SHA = "5508c9f1ea609e6d20f6eafbcba2cb6fbc0a831f";
+const WORKFLOW_SHA = "794adea605b09f4f0330872ab66164369ec39e96";
 
 test("caller is immutable, read-only, and secretless", () => {
   const workflow = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
@@ -47,4 +47,17 @@ test("example-owned CI jobs use immutable job containers", () => {
     validator.jobs["validate-demo-repository"].container.image,
     "php:8.3-cli-bookworm@sha256:177529735599a8244b2c903522f029839dce1c2ac4be122fdc00ada4b45a20e4",
   );
+});
+
+test("example repository validation uses persistent isolated dependency caches", () => {
+  const validator = JSON.parse(fs.readFileSync(".github/workflows/validate-demo-repository.yml", "utf8"));
+  const job = validator.jobs["validate-demo-repository"];
+  assert.equal(job.env.COMPOSER_CACHE_DIR, "/var/cache/platform/composer");
+  assert.equal(job.env.NPM_CONFIG_CACHE, "/var/cache/platform/npm");
+  assert.deepEqual(job.container.volumes, [
+    "platform-ci-composer-php-8.3:/var/cache/platform/composer",
+    "platform-ci-npm-node-24:/var/cache/platform/npm",
+  ]);
+  const setupNode = job.steps.find((step) => step.name === "Configure Node.js");
+  assert.equal(setupNode.with.cache, undefined);
 });
