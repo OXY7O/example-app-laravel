@@ -2,6 +2,21 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## Unreleased
+
+### CI dan runner
+
+- memperbarui caller Laravel ke draft `platform-workflow` PR #17 pada immutable
+  workflow SHA `794adea605b09f4f0330872ab66164369ec39e96`;
+- Menjalankan job milik example dan reusable workflow di container immutable, tanpa instalasi runtime native pada host runner;
+- Menambahkan cache lokal persisten untuk unduhan Composer dan npm tanpa memakai GitHub-hosted cache sebagai default;
+- menaikkan caller contract ke `platform-governance@v1.5.1` dan catalogue
+  `1.4.0`;
+- menghapus input coverage yang belum mempunyai governed executor;
+- mengarahkan seluruh job example ke self-hosted runner `platform-ci`;
+- mempertahankan application-level coverage check sebagai kontrol lokal tanpa
+  mengklaimnya sebagai governed workflow coverage enforcement.
+
 ## [0.3.0] - 2026-08-29
 
 ### Ditambahkan
