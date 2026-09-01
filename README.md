@@ -160,7 +160,7 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 ## Batasan penting
 
 - Tidak ada credential, environment secret, atau `secrets: inherit`.
-- Seluruh job CI example diarahkan ke self-hosted runner `platform-ci`.
+- Seluruh job CI example diarahkan ke self-hosted runner `platform-ci` dan dieksekusi di dalam container runtime yang dipin dengan digest immutable; runtime aplikasi tidak dipasang native pada host runner.
 - Tidak ada deployment ke development, staging, atau production.
 - Tidak ada promotion otomatis setelah merge.
 - Preview tidak menjadi blocking gate.

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const WORKFLOW_SHA = "78bdee3ae513d271cac5c0046972a65528f4fe0a";
+const WORKFLOW_SHA = "5508c9f1ea609e6d20f6eafbcba2cb6fbc0a831f";
 
 test("caller is immutable, read-only, and secretless", () => {
   const workflow = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
@@ -34,4 +34,17 @@ test("example-owned CI jobs use only the platform-ci self-hosted runner", () => 
       assert.deepEqual(job["runs-on"], ["self-hosted", "platform-ci"], `${file}: ${jobId}`);
     }
   }
+});
+
+test("example-owned CI jobs use immutable job containers", () => {
+  const caller = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
+  const validator = JSON.parse(fs.readFileSync(".github/workflows/validate-demo-repository.yml", "utf8"));
+  assert.equal(
+    caller.jobs["prepare-compatibility"].container.image,
+    "node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2",
+  );
+  assert.equal(
+    validator.jobs["validate-demo-repository"].container.image,
+    "php:8.3-cli-bookworm@sha256:177529735599a8244b2c903522f029839dce1c2ac4be122fdc00ada4b45a20e4",
+  );
 });

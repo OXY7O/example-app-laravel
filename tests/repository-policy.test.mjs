@@ -7,7 +7,7 @@ test("repository policy declares the governed pilot boundary", () => {
   assert.equal(policy.visibility, "private");
   assert.equal(policy.defaultBranch, "main");
   assert.equal(policy.governanceVersion, "v1.5.1");
-  assert.equal(policy.workflowVersion, "pr-17@78bdee3ae513d271cac5c0046972a65528f4fe0a");
+  assert.equal(policy.workflowVersion, "pr-17@5508c9f1ea609e6d20f6eafbcba2cb6fbc0a831f");
   assert.equal(policy.deploymentEnabled, false);
   assert.equal(policy.applicationSecretsRequired, false);
 });

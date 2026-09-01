@@ -4,7 +4,7 @@
   "visibility": "private",
   "defaultBranch": "main",
   "governanceVersion": "v1.5.1",
-  "workflowVersion": "pr-17@78bdee3ae513d271cac5c0046972a65528f4fe0a",
+  "workflowVersion": "pr-17@5508c9f1ea609e6d20f6eafbcba2cb6fbc0a831f",
   "profileKey": "php-laravel",
   "deploymentEnabled": false,
   "applicationSecretsRequired": false

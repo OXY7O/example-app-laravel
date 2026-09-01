@@ -12,6 +12,9 @@
   "jobs": {
     "validate-demo-repository": {
       "runs-on": ["self-hosted", "platform-ci"],
+      "container": {
+        "image": "php:8.3-cli-bookworm@sha256:177529735599a8244b2c903522f029839dce1c2ac4be122fdc00ada4b45a20e4"
+      },
       "steps": [
         {
           "name": "Checkout source",
