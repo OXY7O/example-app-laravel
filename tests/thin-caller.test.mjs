@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const WORKFLOW_SHA = "3d84b808594b1070fabae2662c78520d387857eb";
+const WORKFLOW_SHA = "1d51c025059c9bc3bca4fd2ed6c09b9627129399";
 
 test("caller is immutable, read-only, and secretless", () => {
   const workflow = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
