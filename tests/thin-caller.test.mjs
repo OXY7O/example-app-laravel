@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const WORKFLOW_SHA = "6cd3458cceec36d738265a8b5ebefa5d4e19766c";
+const WORKFLOW_SHA = "b006b5eabd171c6a6fb35e42f4a375ff841d281d";
 
 test("caller is immutable, read-only, and secretless", () => {
   const workflow = JSON.parse(fs.readFileSync(".github/workflows/ci.yml", "utf8"));
@@ -16,6 +16,8 @@ test("caller is immutable, read-only, and secretless", () => {
   assert.equal(job.secrets, undefined);
 
   const contract = JSON.parse(job.with["contract-json"]);
+  assert.equal(contract.governanceVersion, "v1.5.0");
+  assert.equal(contract.catalogueVersion, "1.2.0");
   assert.equal(contract.phpVersion, "8.3");
   assert.equal(contract.artifactType, "application-package");
   assert.equal(contract.coverageThreshold, 80);

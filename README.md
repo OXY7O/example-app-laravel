@@ -1,6 +1,6 @@
 # OXY7O Example App Laravel
 
-[![Versi release](https://img.shields.io/badge/release-v0.3.0-0969da?label=Versi%20release)](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.3.0)
+[![Versi release](https://img.shields.io/badge/release-v0.4.0-0969da?label=Versi%20release)](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.4.0)
 [![Status CI](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml)
 ![Profil PHP/Laravel](https://img.shields.io/badge/profil-PHP%20%2F%20Laravel-777bb4?label=Profil%20PHP%2FLaravel)
 ![Contoh implementasi](https://img.shields.io/badge/jenis-example%20implementation-16a34a?label=Contoh%20implementasi)
@@ -20,6 +20,9 @@ Mulai dari [landing page profile PHP/Laravel](https://github.com/OXY7O/platform-
 - preview bersifat opt-in dan non-blocking;
 - legacy/EOL memerlukan exception dan migration plan;
 - workflow berjalan read-only, tanpa application secret, dan tanpa deployment.
+- canonical CI benar-benar berjalan pada runtime `php-ci/8.3` dari
+  `platform-runtime-images@v0.1.1`, dikunci ke digest immutable
+  `sha256:e406cd0def2e69f3ca9800ab68ede80ad7f3a5fd7b23dc20b1927371d867db69`.
 
 Hasil pilot aktual tersedia di [evidence compatibility pilot](docs/results/2026-08-29-php-laravel-compatibility-pilot.json).
 
