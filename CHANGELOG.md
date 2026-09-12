@@ -7,7 +7,7 @@ Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 ### Diubah
 
 - mem-pin seluruh Laravel workflow dan compatibility action ke
-  `platform-workflow@4058870b25de8a9432762f144381d6c416644e2c`;
+  `platform-workflow@3d84b808594b1070fabae2662c78520d387857eb`;
 - memvalidasi canonical Laravel CI menggunakan runtime `php-ci/8.3` dari
   `platform-runtime-images@v0.1.1` dengan digest GHCR immutable;
 - menyelaraskan kontrak ke `platform-governance@v1.5.0` dan catalogue `1.2.0`.
