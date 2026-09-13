@@ -1,10 +1,10 @@
 # OXY7O Example App Laravel
 
-[![Versi release](https://img.shields.io/badge/release-v0.4.0-0969da?label=Versi%20release)](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.4.0)
+[![Versi kandidat](https://img.shields.io/badge/kandidat-v0.5.0-f59e0b?label=Versi)](CHANGELOG.md)
 [![Status CI](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml)
 ![Profil PHP/Laravel](https://img.shields.io/badge/profil-PHP%20%2F%20Laravel-777bb4?label=Profil%20PHP%2FLaravel)
 ![Contoh implementasi](https://img.shields.io/badge/jenis-example%20implementation-16a34a?label=Contoh%20implementasi)
-![Tanpa deployment](https://img.shields.io/badge/deployment-tidak%20tersedia-6b7280?label=Tanpa%20deployment)
+![Deployment pilot](https://img.shields.io/badge/deployment-development%20pilot-f59e0b?label=Deployment)
 
 Implementasi referensi yang menunjukkan cara repository Laravel memakai reusable CI dari `platform-workflow` dengan kontrol dari `platform-governance`.
 
@@ -19,7 +19,10 @@ Mulai dari [landing page profile PHP/Laravel](https://github.com/OXY7O/platform-
 - enam compatibility lane wajib menguji Laravel/PHP tanpa menghasilkan artifact;
 - preview bersifat opt-in dan non-blocking;
 - legacy/EOL memerlukan exception dan migration plan;
-- workflow berjalan read-only, tanpa application secret, dan tanpa deployment.
+- workflow CI berjalan read-only tanpa application secret;
+- OCI image dipublikasikan ke private GHCR dengan digest, SBOM, dan provenance;
+- deployment container-host development memakai health check `/up`, LKG,
+  rollback, dan safe evidence.
 - canonical CI benar-benar berjalan pada runtime `php-ci/8.3` dari
   `platform-runtime-images@v0.1.1`, dikunci ke digest immutable
   `sha256:e406cd0def2e69f3ca9800ab68ede80ad7f3a5fd7b23dc20b1927371d867db69`.
@@ -40,16 +43,17 @@ masih valid untuk approved bundle yang sama. Golden path tetap berasal dari
 `template-app-php-laravel`. Kombinasi baru atau perubahan behavior menjalani
 sandbox validation terlebih dahulu.
 
-Saat ini deployment dan security end-to-end belum tersedia. Karena itu repository
-ini belum dapat menerbitkan certification reusable untuk deployment atau security
-profile penuh.
+Deployment masih pilot dan belum mempunyai actual environment evidence.
+Certification deployment baru dapat diterbitkan setelah positive pilot dan
+controlled rollback pilot berhasil. Staging, production, dan security profile
+penuh belum tersedia.
 
 ## Hubungan dengan repository platform
 
 ```text
 platform-governance       menetapkan policy, lifecycle, control, dan evidence
         |
-platform-workflow         menerapkan reusable CI dan kontrak artifact
+platform-workflow         menerapkan reusable CI, OCI, dan development deployment
         |
 example-app-laravel          membuktikan implementasi dari sisi consumer
 ```
@@ -59,6 +63,10 @@ example-app-laravel          membuktikan implementasi dari sisi consumer
 | Lokasi | Yang dapat dipelajari |
 |---|---|
 | `.github/workflows/ci.yml` | Thin caller, immutable SHA, permissions, canonical job, dan compatibility matrix |
+| `.github/workflows/publish-oci.yml` | Publikasi private GHCR setelah merge ke `development` |
+| `.github/workflows/deploy-development.yml` | Thin caller controlled development deployment |
+| `Dockerfile` | Image non-root dengan dependency frozen dan health check |
+| `deploy/compose.yaml` | Compose contract berbasis supplied immutable image |
 | `compatibility/php-laravel.json` | Versi, lifecycle, execution mode, eligibility, dan blocking behavior |
 | `compatibility/laravel-12/` | Source dan lock file independen untuk Laravel 12 |
 | `Dockerfile.test` | Runtime test PHP yang dapat dipilih melalui build argument |
@@ -131,6 +139,22 @@ Hanya canonical lane Laravel 13/PHP 8.3 yang menghasilkan `application-package`.
 
 Artifact berstatus `ci-qualified` berarti lolos kontrak CI. Artifact tersebut belum otomatis disetujui untuk promotion atau deployment.
 
+## OCI dan deployment development
+
+Merge ke `development` memanggil `publish-oci.yml`. Workflow pusat membangun
+image, menerbitkannya ke private GHCR, dan mengembalikan immutable digest,
+artifact ID, SBOM, provenance, serta safe evidence. Deployment tidak melakukan
+rebuild dan tidak menggunakan tag bergerak.
+
+`deploy-development.yml` adalah controlled pilot setelah operator memverifikasi
+output publikasi. Caller hanya menerima image reference, digest, artifact ID,
+source SHA, LKG digest, dan authorization reference. SSH key, known-hosts, target
+host, target user, dan registry pull token dibaca langsung dari GitHub Environment
+`development` oleh workflow pusat.
+
+VM dan wrapper `platform-compose-deploy` disiapkan mengikuti
+[panduan container-host development](https://github.com/OXY7O/platform-workflow/blob/main/docs/deployment/container-host-development.md).
+
 ## Cara mengadopsi pola ini melalui provisioning
 
 1. Mulai dari `.github/workflows/ci.yml` dan pertahankan permissions `contents: read`.
@@ -160,7 +184,8 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 ## Batasan penting
 
 - Tidak ada credential, environment secret, atau `secrets: inherit`.
-- Tidak ada deployment ke development, staging, atau production.
+- Deployment hanya tersedia sebagai controlled pilot untuk container host `development`.
+- Staging dan production belum tersedia; main maupun tag tidak memicu deployment.
 - Tidak ada promotion otomatis setelah merge.
 - Preview tidak menjadi blocking gate.
 - Legacy/EOL tidak diaktifkan tanpa exception yang masih berlaku.
@@ -173,5 +198,6 @@ akan dirender dari template dan approved overlay melalui governed provisioning.
 - [Aktivasi preview lane](docs/PREVIEW-LANE-ACTIVATION.md)
 - [Exception legacy lane](docs/LEGACY-LANE-EXCEPTION.md)
 - [Profile PHP/Laravel](https://github.com/OXY7O/platform-workflow/blob/main/docs/profiles/php-laravel/README.md)
+- [Panduan container-host development](https://github.com/OXY7O/platform-workflow/blob/main/docs/deployment/container-host-development.md)
 - [Riwayat perubahan](CHANGELOG.md)
 - [Release v0.3.0](https://github.com/OXY7O/example-app-laravel/releases/tag/v0.3.0)

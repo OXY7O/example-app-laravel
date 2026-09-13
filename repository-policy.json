@@ -3,9 +3,11 @@
   "repositoryName": "example-app-laravel",
   "visibility": "private",
   "defaultBranch": "main",
-  "governanceVersion": "v1.2.0",
-  "workflowVersion": "v0.2.0",
+  "governanceVersion": "v1.5.0",
+  "workflowVersion": "v0.7.0-candidate",
   "profileKey": "php-laravel",
-  "deploymentEnabled": false,
-  "applicationSecretsRequired": false
+  "deploymentEnabled": "pilot",
+  "deploymentScope": ["development-container-host"],
+  "applicationSecretsRequired": true,
+  "secretScope": "github-environment-development"
 }
