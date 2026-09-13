@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const read = (file) => fs.readFileSync(file, "utf8");
-const WORKFLOW_SHA = "3cf07e119db0756d780109eaf35d6239f708e8b6";
+const WORKFLOW_SHA = "f44d14af44052e3f2e45238828b121b9c5e9d0a7";
 
 test("OCI image is immutable, frozen, non-root, and health checked", () => {
   const dockerfile = read("Dockerfile");
