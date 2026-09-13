@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const read = (file) => fs.readFileSync(file, "utf8");
+const WORKFLOW_SHA = "3cf07e119db0756d780109eaf35d6239f708e8b6";
 
 test("OCI image is immutable, frozen, non-root, and health checked", () => {
   const dockerfile = read("Dockerfile");
@@ -32,9 +33,11 @@ test("OCI publication and development deployment callers are thin and immutable"
   assert.equal(publish.permissions.contents, "read");
   assert.equal(publish.permissions.packages, "write");
   assert.match(publish.jobs.publish.uses, /build-oci-php-laravel\.yml@[0-9a-f]{40}$/);
+  assert.ok(publish.jobs.publish.uses.endsWith(`@${WORKFLOW_SHA}`));
   assert.equal(deploy.permissions.contents, "read");
   assert.equal(deploy.permissions.packages, "read");
   assert.match(deploy.jobs.deploy.uses, /deploy-container-host-development\.yml@[0-9a-f]{40}$/);
+  assert.ok(deploy.jobs.deploy.uses.endsWith(`@${WORKFLOW_SHA}`));
   assert.equal(deploy.jobs.deploy.secrets, undefined);
   assert.doesNotMatch(JSON.stringify(deploy), /production|staging|secrets: inherit/i);
 });
