@@ -2,6 +2,23 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## [0.5.0] - Belum dirilis
+
+### Ditambahkan
+
+- image aplikasi dari runtime PHP immutable, dependency frozen, non-root user,
+  dan health check `/up`;
+- Compose contract untuk supplied immutable image tanpa local build;
+- thin caller publikasi OCI ke private GHCR setelah merge ke `development`;
+- thin caller deployment container-host development dengan LKG, rollback, dan
+  safe evidence melalui `platform-workflow`.
+
+### Batas
+
+- deployment masih controlled pilot dan belum memiliki actual evidence;
+- secret deployment hanya berada pada GitHub Environment `development`;
+- staging dan production belum tersedia dan tidak dipicu oleh main atau tag.
+
 ## [0.4.0] - 2026-09-12
 
 ### Diubah

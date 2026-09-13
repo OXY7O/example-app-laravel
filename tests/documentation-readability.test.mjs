@@ -8,16 +8,17 @@ test("README explains the governed Laravel example for adopters", () => {
   const readme = read("README.md");
 
   for (const text of [
-    "Versi release",
+    "Versi kandidat",
     "Status CI",
     "Profil PHP/Laravel",
     "Contoh implementasi",
-    "Tanpa deployment",
+    "Deployment pilot",
     "Apa yang dibuktikan repository ini?",
     "Cara membaca implementasi",
     "Mulai cepat",
     "Matriks versi yang diuji",
     "Artifact yang dihasilkan",
+    "OCI dan deployment development",
     "Cara mengadopsi pola ini",
     "Batasan penting",
   ]) {
