@@ -2,6 +2,20 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
+## [0.5.1] - 2026-09-14
+
+### Diperbaiki
+
+- mem-pin publikasi OCI ke release immutable `platform-workflow@v0.7.1` pada
+  commit `2c7d7bf32ebeb780e4626ed61a39d2ccc7ddfd64`;
+- memakai action Node.js 24 dan permission metadata OCI yang telah divalidasi;
+- mengubah status workflow repository dari kandidat menjadi release `v0.7.1`.
+
+### Batas
+
+- tidak menambahkan credential, target internal, atau deployment authority;
+- delivery tetap dijalankan oleh control plane privat `platform-provisioning`.
+
 ## [0.5.0] - 2026-09-14
 
 ### Ditambahkan

@@ -1,6 +1,6 @@
 # OXY7O Example App Laravel
 
-[![Versi kandidat](https://img.shields.io/badge/kandidat-v0.5.0-f59e0b?label=Versi)](CHANGELOG.md)
+[![Versi kandidat](https://img.shields.io/badge/kandidat-v0.5.1-f59e0b?label=Versi)](CHANGELOG.md)
 [![Status CI](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml/badge.svg)](https://github.com/OXY7O/example-app-laravel/actions/workflows/ci.yml)
 ![Profil PHP/Laravel](https://img.shields.io/badge/profil-PHP%20%2F%20Laravel-777bb4?label=Profil%20PHP%2FLaravel)
 ![Contoh implementasi](https://img.shields.io/badge/jenis-example%20implementation-16a34a?label=Contoh%20implementasi)

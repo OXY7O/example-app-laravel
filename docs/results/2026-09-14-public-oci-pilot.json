@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed-with-follow-up",
+  "profileKey": "php-laravel",
+  "runner": "GitHub-hosted ubuntu-24.04",
+  "sourceSha": "9111234c1c0f8aae00c1817380d5ce7e0c71bed8",
+  "workflowSha": "2105d44248bcf0c4365a573d6ea6a7a6f2cb3714",
+  "runUrl": "https://github.com/OXY7O/example-app-laravel/actions/runs/34806366261",
+  "artifactId": "ART-LARAVEL-20260913-34806366261",
+  "imageReference": "ghcr.io/oxy7o/example-app-laravel@sha256:57a94eb4eb84120ca191749e05daf9ade199fa94c209453d8ff5c39b48aaa70b",
+  "imageDigest": "sha256:57a94eb4eb84120ca191749e05daf9ade199fa94c209453d8ff5c39b48aaa70b",
+  "sbomAttached": true,
+  "attestationUrl": "https://github.com/OXY7O/example-app-laravel/attestations/47251215",
+  "attestationVerified": true,
+  "attestationPolicy": {
+    "signerRepository": "OXY7O/platform-workflow",
+    "denySelfHostedSigner": true
+  },
+  "deploymentExecuted": false,
+  "followUp": {
+    "pullRequest": "https://github.com/OXY7O/platform-workflow/pull/29",
+    "reason": "Node.js 24 action refresh and OCI artifact metadata permission"
+  }
+}
