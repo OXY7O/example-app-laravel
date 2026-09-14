@@ -46,8 +46,7 @@ assert.ok(workflowFiles.length > 0, "at least one workflow is required");
 for (const file of workflowFiles) {
   const workflow = JSON.parse(fs.readFileSync(file, "utf8"));
   for (const jobName of Object.keys(workflow.jobs ?? {})) {
-    const isDevelopmentCaller = relative(file) === ".github/workflows/deploy-development.yml" && jobName === "deploy";
-    assert.equal(/deploy/i.test(jobName) && !isDevelopmentCaller, false, `unregistered deployment job: ${jobName}`);
+    assert.equal(/deploy/i.test(jobName), false, `deployment jobs are prohibited in this public repository: ${jobName}`);
   }
   visit(workflow, (value, key) => {
     assert.notEqual(value, "inherit", `secrets: inherit is not allowed in ${relative(file)}`);
@@ -57,11 +56,7 @@ for (const file of workflowFiles) {
   });
 }
 
-const deploymentCaller = JSON.parse(fs.readFileSync(".github/workflows/deploy-development.yml", "utf8"));
-assert.deepEqual(deploymentCaller.permissions, {contents: "read", packages: "read"});
-assert.equal(deploymentCaller.jobs.deploy.secrets, undefined, "environment secrets must not pass through the example caller");
-assert.match(deploymentCaller.jobs.deploy.uses, /deploy-container-host-development\.yml@[a-f0-9]{40}$/);
-assert.equal(/production|staging|secrets:\s*inherit/i.test(JSON.stringify(deploymentCaller)), false, "development caller crosses its boundary");
+assert.equal(fs.existsSync(".github/workflows/deploy-development.yml"), false, "deployment belongs to platform-provisioning");
 
 for (const requiredFile of ["composer.lock", "artisan", "bootstrap/app.php"]) {
   assert.equal(fs.existsSync(requiredFile), true, `missing required Laravel file: ${requiredFile}`);

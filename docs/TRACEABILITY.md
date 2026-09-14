@@ -1,9 +1,9 @@
 # Traceability Pilot Laravel
 
 Dokumen ini menghubungkan tujuan pilot dengan kontrol, pengujian, dan evidence.
-Evidence aktual yang tercatat saat ini hanya mencakup CI dan artifact. OCI serta
-deployment development sudah diimplementasikan sebagai kandidat pilot, tetapi
-belum diklaim terverifikasi sampai pengujian environment selesai.
+Evidence aktual yang tercatat saat ini hanya mencakup CI dan artifact. OCI
+dipublikasikan dari boundary publik, sedangkan deployment hanya boleh dijalankan
+oleh control plane privat dan belum diklaim terverifikasi.
 
 | Kriteria | Kontrol atau pengujian | Evidence aktual |
 |---|---|---|
@@ -14,7 +14,7 @@ belum diklaim terverifikasi sampai pengujian environment selesai.
 | Workflow immutable dan tanpa secret | `tests/thin-caller.test.mjs` | `workflowSha`, `workflowReferenceSha` |
 | Artifact lolos verifikasi | Output reusable workflow | Object `artifact` dan `readiness` |
 | OCI publication terkontrol | `Dockerfile`, `publish-oci.yml`, immutable digest | Pending actual pilot |
-| Deployment development terkontrol | `deploy/compose.yaml`, `deploy-development.yml`, LKG rollback | Pending actual pilot |
+| Penyerahan ke delivery privat | OCI digest, provenance, source SHA, workflow SHA | Pending actual pilot di `platform-provisioning` |
 | Gap tercatat dan dapat ditindaklanjuti | Review hasil pilot | Array `gaps` |
 
 Evidence eksternal yang sensitif disimpan pada evidence storage yang ditetapkan governance. Repository hanya menyimpan metadata dan referensinya.

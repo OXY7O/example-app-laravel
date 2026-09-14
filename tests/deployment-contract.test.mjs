@@ -19,25 +19,13 @@ test("build context excludes mutable and sensitive material", () => {
   for (const value of [".env", ".git", "vendor", "node_modules", "*.key", "*.pem"]) assert.match(ignored, new RegExp(value.replace("*", "\\*")));
 });
 
-test("Compose consumes an immutable supplied image and never builds", () => {
-  const compose = read("deploy/compose.yaml");
-  assert.match(compose, /APP_IMAGE:\?APP_IMAGE is required/);
-  assert.doesNotMatch(compose, /^\s*build:/m);
-  assert.doesNotMatch(compose, /password|private.?key|token:/i);
-});
-
-test("OCI publication and development deployment callers are thin and immutable", () => {
+test("OCI publication caller is thin, immutable, and contains no deployment authority", () => {
   const publish = JSON.parse(read(".github/workflows/publish-oci.yml"));
-  const deploy = JSON.parse(read(".github/workflows/deploy-development.yml"));
   assert.ok(publish.on.push.branches.includes("development"));
   assert.equal(publish.permissions.contents, "read");
   assert.equal(publish.permissions.packages, "write");
   assert.match(publish.jobs.publish.uses, /build-oci-php-laravel\.yml@[0-9a-f]{40}$/);
   assert.ok(publish.jobs.publish.uses.endsWith(`@${WORKFLOW_SHA}`));
-  assert.equal(deploy.permissions.contents, "read");
-  assert.equal(deploy.permissions.packages, "read");
-  assert.match(deploy.jobs.deploy.uses, /deploy-container-host-development\.yml@[0-9a-f]{40}$/);
-  assert.ok(deploy.jobs.deploy.uses.endsWith(`@${WORKFLOW_SHA}`));
-  assert.equal(deploy.jobs.deploy.secrets, undefined);
-  assert.doesNotMatch(JSON.stringify(deploy), /production|staging|secrets: inherit/i);
+  assert.doesNotMatch(JSON.stringify(publish), /self-hosted|platform-ci|DEPLOY_|SSH_|KUBECONFIG|secrets: inherit/i);
+  assert.equal(fs.existsSync(".github/workflows/deploy-development.yml"), false);
 });
