@@ -2,21 +2,29 @@
 
 Seluruh perubahan penting pada repository ini dicatat di dokumen ini.
 
-## [0.5.0] - Belum dirilis
+## [0.5.0] - 2026-09-14
 
 ### Ditambahkan
 
 - image aplikasi dari runtime PHP immutable, dependency frozen, non-root user,
   dan health check `/up`;
-- Compose contract untuk supplied immutable image tanpa local build;
-- thin caller publikasi OCI ke private GHCR setelah merge ke `development`;
-- thin caller deployment container-host development dengan LKG, rollback, dan
-  safe evidence melalui `platform-workflow`.
+- thin caller publikasi OCI pada GitHub-hosted runner setelah merge ke
+  `development`, dipin ke `platform-workflow@2105d44248bcf0c4365a573d6ea6a7a6f2cb3714`;
+- Apache License 2.0, panduan kontribusi, kode etik, kebijakan keamanan,
+  dukungan, CODEOWNERS, issue form, dan Dependabot.
+
+### Diubah
+
+- menetapkan repository sebagai verification fixture publik tanpa self-hosted
+  runner, credential deployment, target internal, atau deployment workflow;
+- menyerahkan verifikasi artifact dan deployment sepenuhnya kepada control plane
+  privat `platform-provisioning`.
 
 ### Batas
 
-- deployment masih controlled pilot dan belum memiliki actual evidence;
-- secret deployment hanya berada pada GitHub Environment `development`;
+- delivery privat masih pilot dan belum memiliki actual environment evidence;
+- status CI, publikasi OCI, provenance, dan attestation bukan authorization
+  deployment;
 - staging dan production belum tersedia dan tidak dipicu oleh main atau tag.
 
 ## [0.4.0] - 2026-09-12
