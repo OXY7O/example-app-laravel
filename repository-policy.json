@@ -4,7 +4,7 @@
   "visibility": "public",
   "defaultBranch": "main",
   "governanceVersion": "v1.5.0",
-  "workflowVersion": "v0.7.0-candidate",
+  "workflowVersion": "v0.7.1",
   "profileKey": "php-laravel",
   "deploymentEnabled": "private-control-plane",
   "deploymentScope": [],
